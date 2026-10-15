@@ -325,7 +325,6 @@ public class LinkedChain<T>
         {
             data = dataPortion;
             next = nextNode;
-            a=3;
         }
         
     }
