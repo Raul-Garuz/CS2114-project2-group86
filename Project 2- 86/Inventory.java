@@ -150,6 +150,27 @@ public class Inventory
         sales.add(sale);
         return sale;
     }
+    
+        /**
+     * Stocks the store with a starting set of products, so the program
+     * has something to sell as soon as it starts. Adapted from the
+     * sample data in our earlier GroceryInventory prototype.
+     *
+     * @throws IllegalStateException if the inventory already has stock
+     */
+    public void loadStartingStock()
+    {
+        if (!stock.isEmpty())
+        {
+            throw new IllegalStateException(
+                "Starting stock can only be loaded into an empty inventory.");
+        }
+        addStock("bananas", 30, 0.29);
+        addStock("apples", 50, 0.79);
+        addStock("cheese", 15, 4.99);
+        addStock("milk", 20, 3.49);
+        addStock("bread", 25, 2.99);
+    }
 
     public int getTotalUnits()
     {
