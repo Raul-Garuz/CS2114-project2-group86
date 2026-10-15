@@ -127,13 +127,13 @@ so cart lines use `addToEnd` to keep receipts in scan order.
 | `Item.java` | Raul Garuz | Built the class and then verified with Claude |
 | `Sale.java` | Raul Garuz | Built the class and then verified with Claude |
 | `Inventory.java` | Thomas Cherian | Built class verified with claude. |
-| `InputReader.java` | Karthik Mittadhoddi | [[Built class verified with claude.] |
-| `ShelfCheckApp.java` | Karthik Mittadhoddi | [[Built class verified with claude.] |
+| `InputReader.java` | Karthik Mittadhoddi | Built class verified with claude. |
+| `ShelfCheckApp.java` | Karthik Mittadhoddi | Built class verified with claude. |
 | `ItemTest.java` | Raul Garuz | Built the class and then verified with Claude |
 | `SaleTest.java` | Raul Garuz | Built the class and then verified with Claude |
-| `InventoryTest.java` | Thomas Cherian | [Built class verified with claude.] |
-| `InputReaderTest.java` | Karthik Mittadhoddi | [[Built class verified with claude.] |
-| `ShelfCheckAppTest.java` | Karthik Mittadhoddi | [[Built class verified with claude.] |
+| `InventoryTest.java` | Thomas Cherian | Built class verified with claude. |
+| `InputReaderTest.java` | Karthik Mittadhoddi | Built class verified with claude. |
+| `ShelfCheckAppTest.java` | Karthik Mittadhoddi | Built class verified with claude. |
 | `README.md` | Raul Garuz | Built and then verified with Claude |
 
 ### How we used GenAI
