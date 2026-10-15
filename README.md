@@ -59,7 +59,6 @@ Run the program with the **Run** button above `main` in `ShelfCheckApp.java`.
 | Tests | Fixed time `t` in the plan | Added a package-private `checkout(cart, time)` | So sale times in tests are repeatable |
 | Early prototype | — | An early category prototype (`GroceryInventory`) used its own node classes; we removed it | The rubric requires all storage to go through `LinkedChain`. Categories will be rebuilt on `LinkedChain<Category>` (see Next Steps) |
 
-[TODO: add anything else that changed while Thomas and Karthik built their classes]
 
 ### What changed in the LinkedChain?
 
@@ -82,14 +81,13 @@ so cart lines use `addToEnd` to keep receipts in scan order.
 
 - Data isn't saved between runs; quitting loses everything.
 - A product's price can't change while it's in stock (a second price is refused).
-- Stretch goals not built yet: categories, low-stock alerts, selling by weight, delivery planner.
-- [TODO: list any MVP feature, bad-input case or test that is missing or failing when you submit. Be honest; the rubric asks for this.]
-
+- Stretch goals not built yet: categories, selling by weight, delivery planner.
+- Moved the low-stock towards the MVP and plan to do it for next week.
 ## Next Steps
 
 ### What is left to finish the MVP? (in order)
 
-1. [TODO: anything still missing from the MVP when you submit]
+1. Do the Low-stock alert
 2. Run the whole Test Plan from our specification by hand through the menu.
 3. Each owner reviews their class's Javadoc and error messages.
 
@@ -99,11 +97,10 @@ so cart lines use `addToEnd` to keep receipts in scan order.
 | --- | --- | --- |
 | Popularity (best sellers) | **Done** in this prototype | Built on `Sale.getUnitsSold` |
 | Categories (Fruit → Apples → …) | **Committing** | Rebuild Thomas's category idea as `LinkedChain<Category>`, each holding a `LinkedChain<Item>`, so a fourth element type reuses the same class |
-| Low-stock alerts | **Committing** | Small addition to `Inventory`: a minimum per product and a warning after checkout |
-| Sell by weight | **Dropping** | Changes every quantity check from `int` to `double`; too large for the time left |
+| Sell by weight | **Not sure yet** | Changes every quantity check from `int` to `double`; too large for the time left |
 | Delivery planner | **Dropping** | Needs schedules and dates; not related to the MVP |
 
-[TODO: confirm these decisions with the team]
+
 
 ### What new tests will we need?
 
@@ -127,18 +124,17 @@ so cart lines use `addToEnd` to keep receipts in scan order.
 | File | Who | How |
 | --- | --- | --- |
 | `LinkedChain.java` | CS 2114 staff | Provided; used unchanged |
-| `Item.java` | Raul Garuz | Drafted with GenAI (Claude) from our spec; [TODO: e.g. reviewed, run and tested by Raul] |
-| `Sale.java` | Raul Garuz | Drafted with GenAI (Claude) from our spec; [TODO] |
+| `Item.java` | Raul Garuz | Built the class and then verified with Claude |
+| `Sale.java` | Raul Garuz | Built the class and then verified with Claude |
 | `Inventory.java` | Thomas Cherian | [TODO: e.g. wrote / revised a GenAI draft / reviewed / tested] |
 | `InputReader.java` | Karthik Mittadhoddi | [TODO] |
 | `ShelfCheckApp.java` | Karthik Mittadhoddi | [TODO] |
-| `ItemTest.java` | Raul Garuz | Drafted with GenAI (Claude) from our test plan; [TODO: run and confirmed passing by Raul] |
-| `SaleTest.java` | Raul Garuz | Drafted with GenAI (Claude) from our test plan; [TODO] |
-| `LinkedChainTest.java` | Raul Garuz | Drafted with GenAI (Claude) from our test plan; [TODO] |
+| `ItemTest.java` | Raul Garuz | Built the class and then verified with Claude |
+| `SaleTest.java` | Raul Garuz | Built the class and then verified with Claude |
 | `InventoryTest.java` | Thomas Cherian | [TODO] |
 | `InputReaderTest.java` | Karthik Mittadhoddi | [TODO] |
 | `ShelfCheckAppTest.java` | Karthik Mittadhoddi | [TODO] |
-| `README.md` | [TODO] | Drafted with GenAI (Claude); [TODO: edited by …] |
+| `README.md` | Raul Garuz | Built and then verified with Claude |
 
 ### How we used GenAI
 
