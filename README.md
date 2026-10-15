@@ -146,6 +146,4 @@ We used Claude (Anthropic) during this deliverable. We gave it our submitted
 specification and the provided `LinkedChain.java`, and it drafted classes, JUnit
 tests and this README following the spec's signatures and test plan. It also
 reviewed an early category prototype and pointed out that it bypassed
-`LinkedChain`, which the rubric doesn't allow. [TODO: say what you checked or
-changed yourselves, e.g. "we ran every test", "we traced checkout by hand",
-"we rewrote X because …".]
+`LinkedChain`, which the rubric doesn't allow.
