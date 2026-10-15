@@ -126,12 +126,12 @@ so cart lines use `addToEnd` to keep receipts in scan order.
 | `LinkedChain.java` | CS 2114 staff | Provided; used unchanged |
 | `Item.java` | Raul Garuz | Built the class and then verified with Claude |
 | `Sale.java` | Raul Garuz | Built the class and then verified with Claude |
-| `Inventory.java` | Thomas Cherian | [TODO: e.g. wrote / revised a GenAI draft / reviewed / tested] |
+| `Inventory.java` | Thomas Cherian | Built class verified with claude. |
 | `InputReader.java` | Karthik Mittadhoddi | [TODO] |
 | `ShelfCheckApp.java` | Karthik Mittadhoddi | [TODO] |
 | `ItemTest.java` | Raul Garuz | Built the class and then verified with Claude |
 | `SaleTest.java` | Raul Garuz | Built the class and then verified with Claude |
-| `InventoryTest.java` | Thomas Cherian | [TODO] |
+| `InventoryTest.java` | Thomas Cherian | [Built class verified with claude.] |
 | `InputReaderTest.java` | Karthik Mittadhoddi | [TODO] |
 | `ShelfCheckAppTest.java` | Karthik Mittadhoddi | [TODO] |
 | `README.md` | Raul Garuz | Built and then verified with Claude |
