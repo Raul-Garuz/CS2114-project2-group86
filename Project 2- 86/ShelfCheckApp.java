@@ -30,7 +30,9 @@ public class ShelfCheckApp
      */
     public static void main(String[] args)
     {
-        new ShelfCheckApp(new Inventory(), new Scanner(System.in)).run();
+        Inventory inventory = new Inventory();
+        inventory.loadStartingStock();
+        new ShelfCheckApp(inventory, new Scanner(System.in)).run();
     }
 
     /**
