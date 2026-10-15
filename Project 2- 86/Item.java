@@ -62,6 +62,13 @@ public class Item
             throw new IllegalArgumentException("Item name can't be empty.");
         }
         String clean = name.trim().replaceAll("\\s+", " ").toLowerCase();
+        
+        if (!clean.matches(".*[a-z].*"))
+        {
+            throw new IllegalArgumentException(
+                "Item name must contain at least one letter.");
+        }
+        
         if (clean.length() > MAX_NAME_LENGTH)
         {
             throw new IllegalArgumentException(
