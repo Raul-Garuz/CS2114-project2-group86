@@ -80,11 +80,15 @@ public class InputReader
         {
             System.out.print(prompt);
             String line = in.nextLine().trim();
-            if (!line.isEmpty())
+                        try
             {
-                return line;
+                Item.normalize(line); // same rules as Item: not blank,
+                return line;          // has a letter, 30 characters max
             }
-            System.out.println("Item name can't be empty.");
+            catch (IllegalArgumentException e)
+            {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
