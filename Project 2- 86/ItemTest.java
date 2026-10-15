@@ -165,4 +165,14 @@ public class ItemTest
     {
         assertTrue(new Item("x", 1, 3.499).toString().contains("$3.50"));
     }
+        @Test
+    public void testNormalizeNeedsALetter()
+    {
+        assertThrows(IllegalArgumentException.class,
+            () -> Item.normalize("123"));
+        assertThrows(IllegalArgumentException.class,
+            () -> new Item("4.99", 1, 1.00));
+        assertEquals("7up", Item.normalize("7UP"));
+        assertEquals("2% milk", Item.normalize("2% Milk"));
+    }
 }
