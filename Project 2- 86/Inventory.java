@@ -12,6 +12,10 @@ public class Inventory
     private final LinkedChain<Item> stock;
     private final LinkedChain<Sale> sales;
     private int totalUnits;
+    private final LinkedChain<StockMinimum> minimums;
+
+    /** What getLowStockReport() returns when nothing is low. */
+    public static final String NOTHING_LOW = "Nothing is low.";
 
     /**
      * Creates an inventory with no stock and no sales.
@@ -21,6 +25,7 @@ public class Inventory
         stock = new LinkedChain<Item>();
         sales = new LinkedChain<Sale>();
         totalUnits = 0;
+        minimums = new LinkedChain<StockMinimum>();
     }
 
     /**
@@ -170,6 +175,11 @@ public class Inventory
         addStock("cheese", 15, 4.99);
         addStock("milk", 20, 3.49);
         addStock("bread", 25, 2.99);
+        setMinimum("bananas", 10);
+        setMinimum("apples", 10);
+        setMinimum("cheese", 5);
+        setMinimum("milk", 5);
+        setMinimum("bread", 5);
     }
 
     public int getTotalUnits()
@@ -296,6 +306,89 @@ public class Inventory
                 rank, products[best], units[best]));
         }
         return report.toString();
+    }
+
+        // ---------------- stretch goal: low-stock alerts ----------------
+
+    /**
+     * Sets (or replaces) the low-stock minimum for a product in stock.
+     *
+     * @param name    the product
+     * @param minimum warn when stock drops below this; 1 to 1000
+     * @throws IllegalArgumentException if the product isn't in stock or
+     *         the minimum is out of range
+     */
+    public void setMinimum(String name, int minimum)
+    {
+        String key = Item.normalize(name);
+        if (getStock(key) == 0)
+        {
+            throw new IllegalArgumentException("Item not found: " + key);
+        }
+        StockMinimum rule = new StockMinimum(key, minimum);
+        StockMinimum old = findMinimum(key);
+        if (old != null)
+        {
+            minimums.remove(old);
+        }
+        minimums.add(rule);
+    }
+
+    /**
+     * @param name a product
+     * @return its minimum, or 0 if no alert is set
+     */
+    public int getMinimum(String name)
+    {
+        StockMinimum rule = findMinimum(Item.normalize(name));
+        return rule == null ? 0 : rule.getMinimum();
+    }
+
+    /**
+     * @param name a product
+     * @return true if it has a minimum and its stock is below it
+     */
+    public boolean isLow(String name)
+    {
+        String key = Item.normalize(name);
+        StockMinimum rule = findMinimum(key);
+        return rule != null && rule.isLow(getStock(key));
+    }
+
+    /**
+     * @return one line per low product ("milk: 4 left (minimum 5)"), or
+     *         "Nothing is low."
+     */
+    public String getLowStockReport()
+    {
+        StringBuilder report = new StringBuilder();
+        for (StockMinimum rule
+            : minimums.toArray(new StockMinimum[minimums.size()]))
+        {
+            int units = getStock(rule.getName());
+            if (rule.isLow(units))
+            {
+                report.append(String.format("%s: %d left (minimum %d)\n",
+                    rule.getName(), units, rule.getMinimum()));
+            }
+        }
+        return report.length() == 0 ? NOTHING_LOW : report.toString();
+    }
+
+    /**
+     * @return the rule for a normalized name, or null if none
+     */
+    private StockMinimum findMinimum(String key)
+    {
+        for (StockMinimum rule
+            : minimums.toArray(new StockMinimum[minimums.size()]))
+        {
+            if (rule.getName().equals(key))
+            {
+                return rule;
+            }
+        }
+        return null;
     }
 
     // ---------------- helpers ----------------
