@@ -332,4 +332,94 @@ public class InventoryTest
     {
         assertEquals("No sales yet.", s.getBestSellerReport());
     }
+
+    @Test
+    public void testSetMinimum()
+    {
+        s.setMinimum("Milk", 10);
+        assertEquals(10, s.getMinimum("milk"));
+    }
+
+    @Test
+    public void testSetMinimumReplacesOldRule()
+    {
+        s.setMinimum("milk", 10);
+        s.setMinimum("milk", 50);
+        assertEquals(50, s.getMinimum("milk"));
+        assertTrue(s.isLow("milk")); // 48 < 50
+    }
+
+    @Test
+    public void testSetMinimumBad()
+    {
+        Exception ex = assertThrows(IllegalArgumentException.class,
+            () -> s.setMinimum("bread", 5));
+        assertEquals("Item not found: bread", ex.getMessage());
+        assertThrows(IllegalArgumentException.class,
+            () -> s.setMinimum("milk", 0));
+        assertThrows(IllegalArgumentException.class,
+            () -> s.setMinimum("milk", 1001));
+        assertThrows(IllegalArgumentException.class,
+            () -> e.setMinimum("milk", 5));
+        assertEquals(0, s.getMinimum("milk"));
+    }
+
+    @Test
+    public void testGetMinimumNoRule()
+    {
+        assertEquals(0, s.getMinimum("milk"));
+        assertEquals(0, s.getMinimum("bread"));
+    }
+
+    @Test
+    public void testIsLowAfterCheckout()
+    {
+        s.setMinimum("eggs", 5);
+        assertFalse(s.isLow("eggs"));      // 12 eggs
+        s.checkout(cart("eggs", 8), t);
+        assertTrue(s.isLow("eggs"));       // 4 eggs
+    }
+
+    @Test
+    public void testIsLowNoRule()
+    {
+        assertFalse(s.isLow("milk"));
+        assertFalse(s.isLow("bread"));
+    }
+
+    @Test
+    public void testGetLowStockReport()
+    {
+        s.setMinimum("eggs", 5);
+        s.setMinimum("milk", 10);
+        s.checkout(cart("eggs", 10), t);
+        String report = s.getLowStockReport();
+        assertTrue(report.contains("eggs: 2 left (minimum 5)"));
+        assertFalse(report.contains("milk"));
+    }
+
+    @Test
+    public void testGetLowStockReportNothingLow()
+    {
+        assertEquals(Inventory.NOTHING_LOW, s.getLowStockReport());
+        assertEquals(Inventory.NOTHING_LOW, e.getLowStockReport());
+    }
+
+    @Test
+    public void testGetLowStockReportSoldOut()
+    {
+        s.setMinimum("eggs", 5);
+        s.checkout(cart("eggs", 12), t);
+        assertTrue(s.getLowStockReport().contains("eggs: 0 left (minimum 5)"));
+    }
+
+    @Test
+    public void testLoadStartingStockSetsMinimums()
+    {
+        e.loadStartingStock();
+        assertEquals(5, e.getMinimum("milk"));
+        assertEquals(10, e.getMinimum("apples"));
+        assertEquals(Inventory.NOTHING_LOW, e.getLowStockReport());
+    }
 }
+
