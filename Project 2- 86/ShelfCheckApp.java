@@ -47,7 +47,7 @@ public class ShelfCheckApp
             while (running)
             {
                 printMenu();
-                int choice = InputReader.readInt(in, "Choose: ", 0, 7);
+                int choice = InputReader.readInt(in, "Choose: ", 0, 9);
                 running = handle(choice);
             }
         }
@@ -63,7 +63,9 @@ public class ShelfCheckApp
         System.out.println();
         System.out.println("1 Add stock     2 New sale      3 Look up item");
         System.out.println("4 Inventory     5 Total units   6 Sales summary");
-        System.out.println("7 Best sellers  0 Quit");
+        System.out.println("7 Best sellers  8 Low stock     9 Set minimum");
+        System.out.println("0 Quit");
+        
     }
 
     /**
@@ -96,6 +98,12 @@ public class ShelfCheckApp
                 break;
             case 7:
                 System.out.print(inventory.getBestSellerReport() + "\n");
+                break;
+             case 8:
+                System.out.print(inventory.getLowStockReport() + "\n");
+                break;
+            case 9:
+                setMinimum();
                 break;
             default:
                 return false; // 0 = Quit
@@ -160,6 +168,12 @@ public class ShelfCheckApp
         try
         {
             System.out.println(inventory.checkout(cart));
+            String low = inventory.getLowStockReport();
+            if (!low.equals(Inventory.NOTHING_LOW))
+            {
+                System.out.println("LOW STOCK ALERT:");
+                System.out.print(low);
+            }
         }
         catch (IllegalArgumentException e)
         {
@@ -167,6 +181,22 @@ public class ShelfCheckApp
         }
     }
 
+    private void setMinimum()
+    {
+        String name = InputReader.readName(in, "Item name: ");
+        int minimum = InputReader.readInt(in, "Warn below (1-1000): ",
+            1, Item.MAX_QUANTITY);
+        try
+        {
+            inventory.setMinimum(name, minimum);
+            System.out.println("Alert set: warn when "
+                + Item.normalize(name) + " drops below " + minimum + ".");
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
     private void lookUp()
     {
         String name = InputReader.readName(in, "Item name: ");
